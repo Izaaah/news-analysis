@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Analyzer - Analisis Berita dengan AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-newspaper"></i>
+                <span>News Analyzer</span>
+            </div>
+            <div class="nav-date">
+                <i class="far fa-calendar"></i>
+                <span id="current-date"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Analisis Berita</h1>
+                <p class="hero-subtitle">Klasifikasi kategori, ringkasan, dan berita terkait menggunakan teknologi BERT</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Input Section -->
+        <section class="input-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-edit"></i> Masukkan Teks Berita</h2>
+                    <p>Tempel atau ketik teks berita yang ingin dianalisis</p>
+                </div>
+                <div class="card-body">
+                    <div class="input-wrapper">
+                        <textarea 
+                            id="news-input" 
+                            placeholder="Contoh: Samsung meluncurkan smartphone baru dengan chipset AI dan kamera canggih. Perangkat ini dilengkapi dengan teknologi terbaru..."
+                            rows="8"
+                        ></textarea>
+                        <div class="input-footer">
+                            <span class="char-count"><span id="char-count">0</span> karakter</span>
+                        </div>
+                    </div>
+                    <button id="analyze-btn" class="btn-primary">
+                        <i class="fas fa-search"></i>
+                        <span class="btn-text">Analisis Berita</span>
+                        <span class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i> Memproses...
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="results-section" style="display: none;">
+            <!-- Category Prediction Card -->
+            <div class="card result-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-tags"></i> Hasil Klasifikasi</h2>
+                    <span class="article-date" id="article-date"></span>
+                </div>
+                <div class="card-body">
+                    <div class="category-result">
+                        <div class="category-badge-large" id="category-badge-large">
+                            <i class="fas fa-folder-open"></i>
+                            <span id="category-name">-</span>
+                        </div>
+                        <div class="confidence-section">
+                            <div class="confidence-header">
+                                <span>Tingkat Keyakinan</span>
+                                <span class="confidence-value" id="confidence-value">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="confidence-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Result Card -->
+<div class="card result-card" id="summary-card" style="display: none;">
+    <div class="card-header">
+        <h2><i class="fas fa-align-left"></i> Ringkasan Berita</h2>
+        <p>Ringkasan singkat dari isi berita berdasarkan model T5.</p>
+    </div>
+    <div class="card-body">
+        <p id="summary-text" class="summary-content"></p>
+    </div>
+</div>
+
+<!-- Keyword Result Card -->
+<div class="card result-card" id="keyword-card" style="display: none;">
+    <div class="card-header">
+        <h2><i class="fas fa-tags"></i> Kata Kunci Utama</h2>
+        <p>Kata kunci yang dianggap penting berdasarkan attention model BERT.</p>
+    </div>
+    <div class="card-body">
+        <div id="keyword-container" class="keyword-list"></div>
+    </div>
+</div>
+
+            <!-- Original Text Card -->
+            <div class="card result-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-file-alt"></i> Teks Berita</h2>
+                </div>
+                <div class="card-body">
+                    <div class="news-text-content" id="original-text">
+                        <!-- Text will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Similar News Card -->
+            <div class="card result-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-newspaper"></i> Berita Terkait</h2>
+                    <p>Berita serupa dari database kami</p>
+                </div>
+                <div class="card-body">
+                    <div id="similar-news-container" class="similar-news-list">
+                        <!-- Similar news items will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-newspaper"></i>
+                    <span>News Analyzer</span>
+                </div>
+                <p class="footer-text">Powered by BERT AI Model • Analisis Berita dengan Teknologi Deep Learning</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 News Analyzer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>     
+</body>
+</html>

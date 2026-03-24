@@ -1,0 +1,8 @@
+bert_news_model/
+data/
+*.bin
+*.pt
+*.h5
+*.csv
+venv/
+__pycache__/
